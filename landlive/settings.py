@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
-# NEED OVERRIDE
-# This value is used in URL path, Swagger, GCS blob save dir etc.
 API_VERSION = 'v1'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -44,9 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'api.models.broker',
     'api.models.client',
-    'api.models.room',
+    'api.models.real_estate',
     'api.models.tour',
 ]
 
@@ -112,10 +111,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # DRF configuration
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.AnonRateThrottle',
