@@ -1,9 +1,12 @@
+from django.core.exceptions import ValidationError
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 
+from api.models.client.models import Client
 from api.models.real_estate.models import RealEstate
-from .serializers import RealEstateToursSerializer
+from api.models.tour.models import Tour
+from .serializers import RealEstateToursSerializer, BookTourSerializer
 
 
 class RealEstateAvailTourViewSet(viewsets.ModelViewSet):
@@ -11,14 +14,28 @@ class RealEstateAvailTourViewSet(viewsets.ModelViewSet):
     lookup_url_kwarg = 'real_estate_id'
     serializer_class = RealEstateToursSerializer
 
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return BookTourSerializer
+
     def list(self, request, *args, **kwargs):
         real_estate = self.get_object()
         serializer = self.get_serializer(real_estate)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-# class TourBookingViewSet(viewsets.ModelViewSet):
-#     queryset = Tour.objects.all()
-#     lookup_url_kwarg = 'tour_id'
-#
-#     def create(self, request, *args, **kwargs):
-#         return
+    def create(self, request, *args, **kwargs):
+        kakaotalk_id = request.data.get('kakaotalk_id')
+        tour_id = request.data.get('tour_id')
+        client, _ = Client.objects.get_or_create(kakaotalk_id=kakaotalk_id)
+        tour = Tour.objects.get(id=tour_id)
+
+        serializer = self.get_serializer(data={'client': client.id,
+                                               'tour': tour.id})
+        try:
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        except ValidationError:
+            return Response({'data': 'Already booked this tour!'},
+                            status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return Response({'data': 'Successfully booked!'},
+                        status=status.HTTP_200_OK)

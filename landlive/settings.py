@@ -44,9 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'api.models.broker',
-    'api.models.client',
     'api.models.real_estate',
+    'api.models.client',
     'api.models.tour',
+    'api.models.client_tour'
 ]
 
 MIDDLEWARE = [

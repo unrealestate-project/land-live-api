@@ -1,5 +1,7 @@
+from django.core.exceptions import ValidationError
 from rest_framework import serializers
 
+from api.models.client_tour.models import ClientTour
 from api.models.real_estate.models import RealEstate
 from api.models.tour.models import Tour
 
@@ -21,3 +23,16 @@ class RealEstateToursSerializer(serializers.ModelSerializer):
     class Meta:
         model = RealEstate
         fields = ['tours']
+
+
+class BookTourSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        try:
+            ClientTour.objects.get(**validated_data)
+        except ClientTour.DoesNotExist:
+            return ClientTour.objects.create(**validated_data)
+        raise ValidationError('You already booked this tour!')
+
+    class Meta:
+        model = ClientTour
+        fields = ['id', 'client', 'tour']
