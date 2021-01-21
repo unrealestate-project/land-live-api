@@ -41,7 +41,6 @@ except requests.exceptions.RequestException:
     pass
 if EC2_PRIVATE_IP:
     ALLOWED_HOSTS.append(EC2_PRIVATE_IP)
-    DEBUG = False
 
 # Application definition
 INSTALLED_APPS = [
@@ -71,6 +70,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'landlive.urls'
+WSGI_APPLICATION = 'landlive.wsgi.application'
 
 TEMPLATES = [
     {
@@ -87,8 +87,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'landlive.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -154,7 +152,7 @@ REST_FRAMEWORK = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
