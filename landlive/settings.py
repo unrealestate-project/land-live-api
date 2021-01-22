@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+
 import requests
 
 API_VERSION = 'v1'
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'corsheaders',
     'landlive',
     'api.models.broker',
     'api.models.real_estate',
@@ -60,6 +62,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -71,6 +74,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'landlive.urls'
 WSGI_APPLICATION = 'landlive.wsgi.application'
+
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = [
+        'http://localhost:3000'
+    ]
 
 TEMPLATES = [
     {

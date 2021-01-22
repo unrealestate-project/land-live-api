@@ -12,11 +12,11 @@ from .serializers import RealEstateToursSerializer, BookTourSerializer
 class RealEstateAvailTourViewSet(viewsets.ModelViewSet):
     queryset = RealEstate.objects.all()
     lookup_url_kwarg = 'real_estate_id'
-    serializer_class = RealEstateToursSerializer
 
     def get_serializer_class(self):
         if self.action == 'create':
             return BookTourSerializer
+        return RealEstateToursSerializer
 
     def list(self, request, *args, **kwargs):
         real_estate = self.get_object()
