@@ -25,10 +25,9 @@ class RealEstateAvailTourViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         kakaotalk_id = request.data.get('kakaotalk_id')
-        tour_id = request.data.get('tour_id')
         client, _ = Client.objects.get_or_create(kakaotalk_id=kakaotalk_id)
-        tour = Tour.objects.get(id=tour_id)
-
+        real_estate = self.get_object()
+        tour = Tour.objects.get(real_estate=real_estate)
         serializer = self.get_serializer(data={'client': client.id,
                                                'tour': tour.id})
         try:
