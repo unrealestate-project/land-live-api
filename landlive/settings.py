@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'x20dwwyt&$3bkskjv#4p8c7t9m6u!m+9r3_rl3x^hg7^57=j40'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False if 'RDS_DB_NAME' in os.environ else True
 
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
@@ -78,6 +78,13 @@ WSGI_APPLICATION = 'landlive.wsgi.application'
 if DEBUG:
     CORS_ALLOWED_ORIGINS = [
         'http://localhost:3000'
+    ]
+else:
+    # if deployed
+    CORS_ALLOWED_ORIGINS = [
+        'https://landcorp.io',
+        'https://www.landcorp.io',
+        'https://dev.landcorp.io',
     ]
 
 TEMPLATES = [
