@@ -1,3 +1,5 @@
+import requests
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from rest_framework import status
 from rest_framework import viewsets
@@ -36,5 +38,13 @@ class RealEstateAvailTourViewSet(viewsets.ModelViewSet):
         except ValidationError:
             return Response({'data': 'Already booked this tour!'},
                             status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        # Send Slack message
+        payload = {"text": f'*예약자*: {kakaotalk_id}\n'
+                           f'*매물ID*: {real_estate.id}\n'
+                           f'*투어ID*: {tour.id}\n'
+                   }
+        requests.post(settings.SLACK_WEBHOOK_URL, json=payload)
+
         return Response({'data': 'Successfully booked!'},
                         status=status.HTTP_200_OK)

@@ -15,6 +15,7 @@ import os
 import requests
 
 API_VERSION = 'v1'
+SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
