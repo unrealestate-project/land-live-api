@@ -6,5 +6,5 @@ from api.models.tour.models import Tour
 
 
 class ClientTour(TimeStampedModel):
-    client = models.ForeignKey(Client, on_delete=models.DO_NOTHING)
-    tour = models.ForeignKey(Tour, on_delete=models.DO_NOTHING)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
