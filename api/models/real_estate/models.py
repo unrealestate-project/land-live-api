@@ -7,7 +7,7 @@ from api.models.broker.models import Broker
 
 
 def hex_uuid():
-    return uuid.uuid4().hex
+    return uuid.uuid4().hex[:10]
 
 
 class RealEstate(TimeStampedModel):
