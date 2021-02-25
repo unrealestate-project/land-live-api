@@ -47,6 +47,20 @@ To see how it looks, please visit 👉 **[landcorp.io](https://landcorp.io)**
 
 ## Troubleshooting
 
+* Django Admin page for `Tour list` ORM
+<p align="center">
+  <img src="https://github.com/Land-Corporation/land-live-web/blob/devel/photo/django_admin.png" width="100%" title="hover text">
+</p>
+
+
+* Django Admin page for `Tour detail`
+<p align="center">
+  <img src="https://github.com/Land-Corporation/land-live-web/blob/devel/photo/django_tour.png" width="100%" title="hover text">
+</p>
+
+
+## Troubleshooting
+
 <details>
 <summary>1. Mysql Insert throws error when sending emoji in POST payload</summary>
 <p>
